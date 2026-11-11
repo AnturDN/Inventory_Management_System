@@ -21,7 +21,7 @@ class StockSeeder extends Seeder
         $warehouseIds = Warehouse::pluck('id')->toArray();
         $userIds = User::pluck('id')->toArray();
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 60; $i++) {
             $quantity = $faker->numberBetween(1, 1000);
             $buyPrice = $faker->randomFloat(2, 10, 1000);
             $sellPrice = $buyPrice + $faker->randomFloat(2, 1, 500);

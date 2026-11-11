@@ -22,7 +22,7 @@ class SellSeeder extends Seeder
             return;
         }
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 40; $i++) {
             $totalAmount = $faker->randomFloat(2, 1000, 10000);
             $paidAmount = $faker->randomFloat(2, 500, $totalAmount);
             $dueAmount = $totalAmount - $paidAmount;

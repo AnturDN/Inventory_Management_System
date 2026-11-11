@@ -3,55 +3,48 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\StockHistory;
 use App\Models\Stock;
-use App\Models\Product;
-use App\Models\Supplier;
-use App\Models\Warehouse;
-use App\Models\User;
+use App\Models\StockHistory;
+use Faker\Factory as Faker;
 
 class StockHistorySeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = \Faker\Factory::create();
+        $faker = Faker::create();
 
-        // Make sure related tables are not empty
-        $stockIds = Stock::pluck('id')->toArray();
-        $productIds = Product::pluck('id')->toArray();
-        $supplierIds = Supplier::pluck('id')->toArray();
-        $warehouseIds = Warehouse::pluck('id')->toArray();
-        $userIds = User::pluck('id')->toArray();
+        $stocks = Stock::where('quantity', '>', 0)->get();
 
-        if (
-            empty($stockIds) || empty($productIds) || empty($supplierIds) ||
-            empty($warehouseIds) || empty($userIds)
-        ) {
-            $this->command->error('Related tables must have data before running StockHistorySeeder.');
+        if ($stocks->isEmpty()) {
+            $this->command->error('Stocks must have data before running StockHistorySeeder.');
             return;
         }
 
-        for ($i = 0; $i < 300; $i++) {
+        for ($i = 0; $i < 50; $i++) {
+            // Select one stock so all related IDs remain consistent
+            $stock = $stocks->random();
+
             $quantity = $faker->numberBetween(1, 100);
-            $buyPrice = $faker->randomFloat(2, 10, 500);
-            $sellPrice = $faker->randomFloat(2, $buyPrice, $buyPrice + 200);
+            $buyPrice = $stock->buy_price;
+            $sellPrice = $stock->sell_price;
+
             $totalAmount = $quantity * $buyPrice;
             $paidAmount = $faker->randomFloat(2, 0, $totalAmount);
             $dueAmount = $totalAmount - $paidAmount;
 
             StockHistory::create([
-                'stock_id' => $faker->randomElement($stockIds),
-                'product_id' => $faker->randomElement($productIds),
-                'supplier_id' => $faker->randomElement($supplierIds),
-                'warehouse_id' => $faker->randomElement($warehouseIds),
-                'user_id' => $faker->randomElement($userIds),
+                'stock_id' => $stock->id,
+                'product_id' => $stock->product_id,
+                'supplier_id' => $stock->supplier_id,
+                'warehouse_id' => $stock->warehouse_id,
+                'user_id' => $stock->user_id,
                 'quantity' => $quantity,
                 'buy_price' => $buyPrice,
                 'sell_price' => $sellPrice,
                 'total_amount' => $totalAmount,
                 'paid_amount' => $paidAmount,
                 'due_amount' => $dueAmount,
-                'status' => $faker->boolean(90), // 90% active
+                'status' => $faker->boolean(90),
             ]);
         }
     }

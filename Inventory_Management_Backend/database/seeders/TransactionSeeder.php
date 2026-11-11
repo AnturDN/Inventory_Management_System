@@ -8,7 +8,6 @@ use App\Models\Stock;
 use App\Models\Expense;
 use App\Models\PaymentType;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
 
 class TransactionSeeder extends Seeder
@@ -22,35 +21,43 @@ class TransactionSeeder extends Seeder
         $paymentTypes = PaymentType::pluck('id')->toArray();
         $users = User::pluck('id')->toArray();
 
-        DB::beginTransaction();
+        if (empty($users)) {
+            $this->command->error('Users must have data before running TransactionSeeder.');
+            return;
+        }
 
-        try {
-            foreach (range(1, 200) as $i) {
-                $type = $faker->randomElement(['income', 'expense']);
-                $stockId = $faker->optional()->randomElement($stocks);
-                $expenseId = $faker->optional()->randomElement($expenses);
-                $paymentTypeId = $faker->optional()->randomElement($paymentTypes);
-                $userId = $faker->randomElement($users);
-                $amount = $faker->randomFloat(2, 50, 1000);
+        for ($i = 0; $i < 40; $i++) {
 
-                Transaction::create([
-                    'type'             => $type,
-                    'stock_id'         => $stockId,
-                    'expense_id'       => $expenseId,
-                    'payment_type_id'  => $paymentTypeId,
-                    'others'           => $faker->sentence(),
-                    'comments'         => $faker->paragraph(),
-                    'amount'           => $amount,
-                    'user_id'          => $userId,
-                    'status'           => $faker->boolean(90),
-                ]);
+            $type = $faker->randomElement(['income', 'expense']);
+
+            $stockId = null;
+            $expenseId = null;
+
+            if ($type === 'income' && !empty($stocks)) {
+                $stockId = $faker->randomElement($stocks);
             }
 
-            DB::commit();
+            if ($type === 'expense' && !empty($expenses)) {
+                $expenseId = $faker->randomElement($expenses);
+            }
 
-        } catch (\Exception $e) {
-            DB::rollBack();
-            \Log::error('TransactionSeeder error: ' . $e->getMessage());
+            $paymentTypeId = !empty($paymentTypes)
+                ? $faker->randomElement($paymentTypes)
+                : null;
+
+            $userId = $faker->randomElement($users);
+
+            Transaction::create([
+                'type' => $type,
+                'stock_id' => $stockId,
+                'expense_id' => $expenseId,
+                'payment_type_id' => $paymentTypeId,
+                'others' => $faker->sentence(),
+                'comments' => $faker->paragraph(),
+                'amount' => $faker->randomFloat(2, 50, 1000),
+                'user_id' => $userId,
+                'status' => $faker->boolean(90),
+            ]);
         }
     }
 }

@@ -15,7 +15,7 @@ class BrandSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             Brand::create([
                 'name' => $faker->unique()->company,
                 'logo' => $faker->imageUrl(200, 200, 'business', true, 'Brand'),

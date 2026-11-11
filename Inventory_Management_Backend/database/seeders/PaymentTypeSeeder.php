@@ -18,7 +18,7 @@ class PaymentTypeSeeder extends Seeder
         // Example payment method types
         $types = ['Digital Wallet', 'Bank Transfer', 'Card', 'Cash', 'Mobile Banking'];
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             PaymentType::create([
                 'name'  => $faker->unique()->company . ' Pay',
                 'type'  => $faker->randomElement($types),

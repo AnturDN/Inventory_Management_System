@@ -23,7 +23,7 @@ class ProductSeeder extends Seeder
         $brandIds = Brand::pluck('id')->toArray();
         $userIds = User::pluck('id')->toArray();
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             Product::create([
                 'name' => $faker->word(),
                 'description' => $faker->optional()->sentence(10),

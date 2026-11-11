@@ -15,7 +15,7 @@ class SupplierSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             Supplier::create([
                 'name'       => $faker->name,
                 'shop_name'  => $faker->company,

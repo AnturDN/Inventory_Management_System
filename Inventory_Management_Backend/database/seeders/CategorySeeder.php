@@ -15,7 +15,7 @@ class CategorySeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             Category::create([
                 'name' => $faker->unique()->words(2, true), // e.g. "Smart Devices"
                 'image' => $faker->imageUrl(300, 300, 'category', true, 'Category'),

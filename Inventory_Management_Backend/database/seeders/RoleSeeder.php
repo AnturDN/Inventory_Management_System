@@ -17,7 +17,7 @@ class RoleSeeder extends Seeder
 
         $permissionOptions = ['create', 'edit', 'view', 'delete', 'export', 'import'];
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             // Randomly pick 2-5 permissions
             $permissions = collect($permissionOptions)
                 ->random(rand(2, 5))

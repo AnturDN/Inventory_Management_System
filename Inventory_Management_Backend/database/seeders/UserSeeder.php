@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         $roleIds = Role::pluck('id')->toArray();
         $genders = ['male', 'female', 'other'];
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             User::create([
                 'name'     => $faker->name,
                 'email'    => $faker->unique()->safeEmail,

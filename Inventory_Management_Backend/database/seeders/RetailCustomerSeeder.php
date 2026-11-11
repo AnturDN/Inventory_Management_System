@@ -17,7 +17,7 @@ class RetailCustomerSeeder extends Seeder
         // Get valid user IDs to associate
         $userIds = User::pluck('id')->toArray();
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             RetailCustomer::create([
                 'name'      => $faker->name,
                 'email'     => $faker->unique()->safeEmail,

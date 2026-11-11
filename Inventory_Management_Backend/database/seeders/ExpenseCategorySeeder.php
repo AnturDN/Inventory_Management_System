@@ -18,7 +18,7 @@ class ExpenseCategorySeeder extends Seeder
         // Example types — adjust based on your business logic
         $types = ['Operational', 'Administrative', 'Marketing', 'Travel', 'Supplies'];
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             ExpenseCategory::create([
                 'name'   => $faker->unique()->words(2, true), // e.g. "Office Rent"
                 'type'   => $faker->randomElement($types),

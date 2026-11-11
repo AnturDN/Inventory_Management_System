@@ -28,7 +28,7 @@ class ExpenseSeeder extends Seeder
 
         $data = [];
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $data[] = [
                 'description' => $faker->sentence(),
                 'cost' => $faker->randomFloat(2, 100, 5000),
