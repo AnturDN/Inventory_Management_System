@@ -1,0 +1,30 @@
+
+# Laravel Backend
+Inventory_Management_Backend/.env
+Inventory_Management_Backend/.env.*
+!Inventory_Management_Backend/.env.example
+Inventory_Management_Backend/vendor/
+Inventory_Management_Backend/storage/logs/*
+Inventory_Management_Backend/storage/framework/cache/*
+Inventory_Management_Backend/storage/framework/sessions/*
+Inventory_Management_Backend/storage/framework/views/*
+
+# Frontend
+Inventory_Management_Frontend/node_modules/
+Inventory_Management_Frontend/dist/
+Inventory_Management_Frontend/.env
+Inventory_Management_Frontend/.env.*
+!Inventory_Management_Frontend/.env.example
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+
+# Ignore uploaded backend images
+Inventory_Management_Backend/public/images/
+
